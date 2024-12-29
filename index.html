@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="title">Форум</h1>
+    <main class="main">
+      <form class="input-comment">
+        <h2 class="input-comment__subtitle">Оставьте Ваш комментарий:</h2>
+        <div class="input-comment__input-group">
+          <label for="name-input" class="input-comment__input-lbl"
+            >Ваш юзернэйм:</label
+          >
+          <input
+            type="text"
+            name="name"
+            id="name-input"
+            class="input-comment__input-field"
+            required
+          />
+        </div>
+        <div class="input-comment__input-group">
+          <label for="pic-input" class="input-comment__input-lbl"
+            >Ссылка на Ваш аватар:</label
+          >
+          <input
+            type="text"
+            name="avatar-link"
+            id="pic-input"
+            class="input-comment__input-field"
+            required
+          />
+        </div>
+        <div class="input-comment__input-group">
+          <label for="msg-input" class="input-comment__input-lbl"
+            >Ваш комментарий:</label
+          >
+          <textarea
+            name="comment"
+            id="msg-input"
+            class="input-comment__input-field input-comment__input-field--tall"
+            required
+          ></textarea>
+        </div>
+        <button id="add-btn" class="input-comment__btn">Отправить</button>
+      </form>
+      <div class="comments">
+        <h2 class="comments__subtitle">Чат:</h2>
+        <p class="comments__empty-paragraph">Здесь пока пусто...</p>
+        <!-- <div class="comment">
+          <img src="" alt="" class="userPic" />
+          <h3 class="username"></h3>
+          <p class="user-comment"></p>
+        </div> -->
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
