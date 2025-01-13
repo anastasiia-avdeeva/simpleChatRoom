@@ -33,41 +33,67 @@ function checkSpamAndReplace(input) {
 }
 
 
-addBtn.addEventListener("click", postComment);
+addBtn.addEventListener("click", checkAndPost);
 
-function postComment(evt) {
+function checkAndPost(evt) {
     evt.preventDefault(); 
+    
+    if (checkEmptyFields()) {
+        alert("Пожалуйста, заполните все поля ввода");
+        return;
+    } 
+    
+    postComment();
+}
 
-    const imgContainerElem = document.createElement('div');
-    imgContainerElem.classList.add('comment__user-pic-container');
+function checkEmptyFields() {
+    return userNameInput.value.trim() === "" || picLinkInput.value.trim() === "" || msgInput.value.trim() === ""
+}
 
-    const img = document.createElement('img');
-    img.classList.add('comment__user-pic');
-    img.src = picLinkInput.value;
-    img.alt = `Аватарка юзера ${userNameInput.value}`;
-    imgContainerElem.append(img);
+function postComment() {
 
-    const h3Elem = document.createElement('h3');
-    h3Elem.classList.add('comment__user-name');
-    h3Elem.textContent = userNameInput.value;
+    const mainContainer = createElemAddClass('div', 'comment');
 
-    const pElem = document.createElement('p');
-    pElem.classList.add('comment__user-comment')
-    pElem.textContent = msgInput.value;
+    const imgContainer = createElemAddClass('div', 'comment__user-pic-container');
 
-    const container = document.createElement('div');
-    container.classList.add('comment');
+    const img = createElemAddClass('img', 'comment__user-pic');
+    addSrcAltToImg(img, picLinkInput.value, `Аватарка юзера ${userNameInput.value}`)
+    imgContainer.append(img);
 
-    container.append(imgContainerElem, h3Elem, pElem);
+    const h3Elem = createElemAddClass('h3', 'comment__user-name', userNameInput.value);
 
+    const pElem = createElemAddClass('p', 'comment__user-msg', msgInput.value);
+
+    mainContainer.append(imgContainer, h3Elem, pElem);
+
+    delInformParagraph()
+
+    comments.append(mainContainer);
+    clearInput()
+
+}
+
+function createElemAddClass(elemName, className, textContentVal = undefined) {
+    const newElem = document.createElement(elemName);
+    newElem.classList.add(className);
+
+    if (textContentVal !== undefined) {
+        newElem.textContent = textContentVal;
+    }
+    return newElem;
+}
+
+function addSrcAltToImg(imgElem, src, alt) {
+    imgElem.src = src;
+    imgElem.alt = alt;
+}
+
+function delInformParagraph() {
     const informParagraph = document.querySelector(".comments__inform-paragraph");
 
     if (informParagraph !== null) {
         informParagraph.remove();
     }
-    
-    comments.append(container);
-    clearInput()
 }
 
 function clearInput() {

@@ -104,7 +104,7 @@ body {
   font-size: 32px;
   border-bottom: solid 1px black;
 }
-.comment__user-comment {
+.comment__user-msg {
   grid-area: msg;
   font-size: 38px;
 }
