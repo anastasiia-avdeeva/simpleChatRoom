@@ -5,25 +5,13 @@ const addBtn = document.getElementById("add-btn");
 const toReplace = "***";
 const comments = document.getElementById("comments");
 
-userNameInput.addEventListener("input", () => {
-    userNameInput.value = delWhiteSpaceInName(userNameInput.value)
-});
-
 function delWhiteSpaceInName(input) {
     return input.trim().replace(/\s/g, "");
 }
 
-userNameInput.addEventListener("change", () => {
-    userNameInput.value = alterName(userNameInput.value)
-});
-
 function alterName(input) {
     return input[0].toUpperCase() + input.slice(1).toLowerCase();
 }
-
-msgInput.addEventListener("change", () => {
-    msgInput.value = checkSpamAndReplace(msgInput.value);
-}); 
 
 function checkSpamAndReplace(input) {
     let msg = input.trim();
@@ -32,22 +20,19 @@ function checkSpamAndReplace(input) {
     return msg;
 }
 
-
-addBtn.addEventListener("click", checkAndPost);
-
 function checkAndPost(evt) {
     evt.preventDefault(); 
     
-    if (checkEmptyFields()) {
+    if (areFieldsEmpty()) {
         alert("Пожалуйста, заполните все поля ввода");
         return;
     } 
-    
+
     postComment();
 }
 
-function checkEmptyFields() {
-    return userNameInput.value.trim() === "" || picLinkInput.value.trim() === "" || msgInput.value.trim() === ""
+function areFieldsEmpty() {
+    return !userNameInput.value.trim() || !picLinkInput.value.trim() || !msgInput.value.trim();
 }
 
 function postComment() {
@@ -70,7 +55,6 @@ function postComment() {
 
     comments.append(mainContainer);
     clearInput()
-
 }
 
 function createElemAddClass(elemName, className, textContentVal = undefined) {
@@ -101,3 +85,17 @@ function clearInput() {
     picLinkInput.value = '';
     msgInput.value = '';
 }
+
+userNameInput.addEventListener("input", () => {
+    userNameInput.value = delWhiteSpaceInName(userNameInput.value)
+});
+
+userNameInput.addEventListener("change", () => {
+    userNameInput.value = alterName(userNameInput.value)
+});
+
+msgInput.addEventListener("change", () => {
+    msgInput.value = checkSpamAndReplace(msgInput.value);
+}); 
+
+addBtn.addEventListener("click", checkAndPost);
