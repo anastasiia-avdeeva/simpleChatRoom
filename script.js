@@ -5,37 +5,33 @@ const addBtn = document.getElementById("add-btn");
 const toReplace = "***";
 const comments = document.getElementById("comments");
 
-userNameInput.addEventListener("input", delWhiteSpaceInName);
+userNameInput.addEventListener("input", () => {
+    userNameInput.value = delWhiteSpaceInName(userNameInput.value)
+});
 
-function delWhiteSpaceInName() {
-    let userName = userNameInput.value;
-    userName = userName.replace(/\s/g, "");
-    userNameInput.value = userName;
+function delWhiteSpaceInName(input) {
+    return input.trim().replace(/\s/g, "");
 }
 
-userNameInput.addEventListener("change", alterName);
+userNameInput.addEventListener("change", () => {
+    userNameInput.value = alterName(userNameInput.value)
+});
 
-function alterName() {
-    let userName = userNameInput.value;
-    userName = userName[0].toUpperCase() + userName.slice(1).toLowerCase();
-    userNameInput.value = userName;
+function alterName(input) {
+    return input[0].toUpperCase() + input.slice(1).toLowerCase();
 }
 
-msgInput.addEventListener("change", checkSpam); 
+msgInput.addEventListener("change", () => {
+    msgInput.value = checkSpamAndReplace(msgInput.value);
+}); 
 
-function checkSpam() {
-    let msg = msgInput.value.trim();
+function checkSpamAndReplace(input) {
+    let msg = input.trim();
+    msg = msg.replace(/viagra/gi, toReplace).replace(/xxx/gi, toReplace);
 
-    if (msg.match(/viagra/gi) !== null) {
-        msg = msg.replace(/viagra/gi, toReplace);
-    }
-
-    if (msg.match(/xxx/gi) !== null) {
-        msg = msg.replace(/xxx/gi, toReplace);
-    }
-
-    msgInput.value = msg;
+    return msg;
 }
+
 
 addBtn.addEventListener("click", postComment);
 
@@ -78,5 +74,4 @@ function clearInput() {
     userNameInput.value = '';
     picLinkInput.value = '';
     msgInput.value = '';
-
 }
